@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no">
+<title>Buse EP</title>
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Buse EP">
+<meta name="theme-color" content="#0d1b2e">
+<link rel="apple-touch-icon" href="icons/icon-180.png">
+<link rel="icon" href="icons/icon-192.png">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<header>
+  <h1>Buse EP</h1>
+  <span class="sub">Buses Europlacer</span>
+</header>
+
+<main>
+  <!-- SCANNER -->
+  <section id="v-scan" class="view active">
+    <div class="loupe-wrap">
+      <canvas id="loupe" width="600" height="600"></canvas>
+      <div class="guide"><div class="cross"></div></div>
+      <div id="camMsg" class="cam-msg">Touchez « Caméra » pour démarrer</div>
+    </div>
+    <div class="row">
+      <label class="zoom">Zoom <input id="zoom" type="range" min="1" max="8" step="0.5" value="3"> <b id="zoomVal">×3</b></label>
+    </div>
+    <div class="row btns">
+      <button id="btnCam" class="sec">Caméra</button>
+      <button id="btnRead" class="big">LIRE</button>
+      <button id="btnAuto" class="sec">Auto : non</button>
+    </div>
+    <div class="row btns">
+      <label class="sec filebtn">Photo<input id="photoIn" type="file" accept="image/*"></label>
+    </div>
+    <p class="hint">Face ronde de la buse <b>bien de face</b>, dans le cercle, trou central sur la croix. Le sens de rotation n'a pas d'importance. Bonne lumière, sans reflet.</p>
+  </section>
+
+  <!-- PHOTO -->
+  <section id="v-photo" class="view">
+    <p class="hint">Touchez le <b>centre</b> de la buse sur la photo.</p>
+    <div class="photo-wrap"><canvas id="photoCv"></canvas></div>
+    <div class="row btns"><button id="btnBack" class="sec">Retour</button></div>
+  </section>
+
+  <!-- MANUEL -->
+  <section id="v-man" class="view">
+    <p class="hint">Petit point en haut. Touchez les gros points que vous voyez sur la buse.</p>
+    <div class="man-wrap"><svg id="manSvg" viewBox="-110 -110 220 220"></svg></div>
+    <div id="manRes" class="man-res">—</div>
+    <div class="row btns"><button id="manClear" class="sec">Effacer</button></div>
+  </section>
+
+  <!-- LISTE -->
+  <section id="v-list" class="view">
+    <div class="row"><input id="search" type="search" placeholder="N° ou description…"></div>
+    <div id="grid" class="grid"></div>
+  </section>
+
+  <!-- REGLAGES -->
+  <section id="v-set" class="view">
+    <div class="card">
+      <h2>Sens de lecture</h2>
+      <p class="hint">À changer seulement si les numéros lus ne correspondent pas à vos buses.</p>
+      <label class="radio"><input type="radio" name="dir" value="0"> Normal (comme les fiches N°1 à 63)</label>
+      <label class="radio"><input type="radio" name="dir" value="1"> Inversé (miroir)</label>
+    </div>
+    <div class="card">
+      <h2>Descriptions</h2>
+      <p class="hint">Sauvegarder ou recharger les descriptions des buses (fichier).</p>
+      <div class="row btns">
+        <button id="btnExport" class="sec">Exporter</button>
+        <label class="sec filebtn">Importer<input id="importIn" type="file" accept="application/json,.json"></label>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Le code</h2>
+      <p class="hint">Petit point = départ. 7 emplacements tous les 45° en tournant. Valeurs : 1, 2, 4, 8, 16, 32. Le 7ᵉ est le point de contrôle : le nombre de gros points est toujours pair.</p>
+      <p class="hint">Version 1.0 — A.S.R.S. / F. THIEBAULT</p>
+    </div>
+  </section>
+</main>
+
+<!-- RESULTAT -->
+<div id="result" class="result hidden">
+  <div class="res-card">
+    <div id="resNum" class="res-num"></div>
+    <div id="resDesc" class="res-desc"></div>
+    <canvas id="resCv" width="300" height="300"></canvas>
+    <div id="resInfo" class="res-info"></div>
+    <button id="resClose" class="big">OK</button>
+  </div>
+</div>
+
+<nav>
+  <button data-v="v-scan" class="on">Scanner</button>
+  <button data-v="v-man">Manuel</button>
+  <button data-v="v-list">Liste</button>
+  <button data-v="v-set">Réglages</button>
+</nav>
+
+<script src="core.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
